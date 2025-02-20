@@ -42,8 +42,8 @@ public class UserService {
             String encPassword = CipherUtil.encrypt(user.getPassword());
             user.setPassword(encPassword);
 
-            connection = getConnection();
-            new UserDao().insert(connection, user);
+            connection = getConnection();//DBとの接続 変数connectionはDBにアクセスするための接続情報
+            new UserDao().insert(connection, user);//Daoの処理へ移る
             commit(connection);
         } catch (RuntimeException e) {
             rollback(connection);

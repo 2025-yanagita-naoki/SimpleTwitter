@@ -17,7 +17,7 @@ import chapter6.beans.User;
 import chapter6.logging.InitApplication;
 import chapter6.service.UserService;
 
-@WebServlet(urlPatterns = { "/signup" })
+@WebServlet(urlPatterns = { "/signup" })//signupのURLを受け取る
 public class SignUpServlet extends HttpServlet {
 
 
@@ -63,7 +63,7 @@ public class SignUpServlet extends HttpServlet {
             return;
         }
         new UserService().insert(user);//データベースへのユーザー登録
-        response.sendRedirect("./");
+        response.sendRedirect("./");//コンテキストルートであるTopServletのdoGetが呼び出される
     }
 
     private User getUser(HttpServletRequest request) throws IOException, ServletException {

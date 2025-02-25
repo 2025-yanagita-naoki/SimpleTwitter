@@ -129,5 +129,3 @@ public class SettingServlet extends HttpServlet {
         return true;
     }
 }
-
-

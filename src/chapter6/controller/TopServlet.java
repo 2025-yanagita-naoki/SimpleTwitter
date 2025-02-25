@@ -32,7 +32,7 @@ public class TopServlet extends HttpServlet {
     */
     public TopServlet() {
         InitApplication application = InitApplication.getInstance();
-        application.init();
+        application.init(); // クラスのインスタンスが生成されるとき自動的に呼ばれる
 
     }
 

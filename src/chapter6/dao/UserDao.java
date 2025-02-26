@@ -119,6 +119,32 @@ public class UserDao {
 		}
 	}
 
+	public User select(Connection connection, String account) {
+
+	    PreparedStatement ps = null;
+	    try {
+	        String sql = "SELECT * FROM users WHERE account = ?"; // 引数で渡したアカウント名に該当するデータを抽出
+
+	        ps = connection.prepareStatement(sql);
+	        ps.setString(1, account); // バインド変数に引数として渡されたアカウント名を入力
+
+	        ResultSet rs = ps.executeQuery();
+
+	        List<User> users = toUsers(rs);
+	        if (users.isEmpty()) { // 該当アカウントなし
+	            return null;
+	        } else if (2 <= users.size()) { // アカウント名の重複
+	            throw new IllegalStateException("ユーザーが重複しています");
+	        } else {
+	            return users.get(0); // 1つに絞られたデータを抽出
+	        }
+	    } catch (SQLException e) {
+	        throw new SQLRuntimeException(e);
+	    } finally {
+	        close(ps);
+	    }
+	}
+
 	public User select(Connection connection, int id) {
 
 

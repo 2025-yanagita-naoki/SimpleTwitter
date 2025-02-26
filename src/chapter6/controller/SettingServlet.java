@@ -126,7 +126,7 @@ public class SettingServlet extends HttpServlet {
         User checkAccount = new UserService().select(user.getAccount());
         if(checkAccount != null) {
         	if(user.getId() != (checkAccount.getId())) {
-           	 errorMessages.add("すでに存在するアカウントです");
+        		errorMessages.add("すでに存在するアカウントです");
            }
         }
 

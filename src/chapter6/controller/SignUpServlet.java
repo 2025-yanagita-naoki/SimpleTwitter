@@ -113,7 +113,7 @@ public class SignUpServlet extends HttpServlet {
         User checkAccount = new UserService().select(user.getAccount());
         if(checkAccount != null) {
         	if(user.getAccount().equals(checkAccount.getAccount())) {
-           	 errorMessages.add("すでに存在するアカウントです");
+        		errorMessages.add("すでに存在するアカウントです");
            }
         }
 

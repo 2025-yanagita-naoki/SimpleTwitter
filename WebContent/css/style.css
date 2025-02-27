@@ -96,6 +96,10 @@ a.profile .account {
 	font-weight: bold;
 }
 
+.message {
+	padding: 20px 0px;
+}
+
 .account-name .name {
 	font-weight: lighter;
 	color: gray;
@@ -106,6 +110,19 @@ a.profile .account {
 	font-weight: lighter;
 	color: gray;
 	font: small-caption;
+}
+
+.messages_submit {
+	padding-top: 15px;
+}
+
+.message-submit_edit {
+	display:inline-block;
+}
+
+.message-submit_delete {
+	display: inline-block;
+	padding-left: 20px;
 }
 
 .copyright {

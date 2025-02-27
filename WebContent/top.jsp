@@ -82,6 +82,22 @@
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
+					<div class=message-submits>
+						<c:if test="${ isShowMessageForm }">
+							<div class=messages_submit>
+								<div class="message-submit_edit">
+									<form action="message" method="post">
+										<input type="submit" value="編集">
+									</form>
+								</div>
+								<div class="message-submit_delete">
+									<form action="message" method="post">
+										<input type="submit" value="削除">
+									</form>
+								</div>
+							</div>
+						</c:if>
+					</div>
 				</div>
 			</c:forEach>
 		</div>

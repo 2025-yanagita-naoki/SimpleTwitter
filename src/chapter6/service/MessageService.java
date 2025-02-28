@@ -58,6 +58,29 @@ public class MessageService {
         }
     }
 
+    public void delete(String deleteMessageId) {
+
+  	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+          " : " + new Object(){}.getClass().getEnclosingMethod().getName());
+
+          Connection connection = null;
+          try {
+              connection = getConnection();
+              new MessageDao().delete(connection, deleteMessageId);
+              commit(connection);
+          } catch (RuntimeException e) {
+              rollback(connection);
+  		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+              throw e;
+          } catch (Error e) {
+              rollback(connection);
+  		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+              throw e;
+          } finally {
+              close(connection);
+          }
+      }
+
     public List<UserMessage> select(String userId) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +

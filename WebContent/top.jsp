@@ -83,16 +83,18 @@
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
 					<div class=message-submits>
-						<c:if test="${ isShowMessageForm }">
+						<c:if test="${loginUser.id == message.userId}">
 							<div class=messages_submit>
 								<div class="message-submit_edit">
-									<form action="message" method="post">
+									<form action="edit" method="post">
 										<input type="submit" value="編集">
+										<input name="editMassageId" type="hidden" value="${message.id}">
 									</form>
 								</div>
 								<div class="message-submit_delete">
-									<form action="message" method="post">
+									<form action="deleteMessage" method="post">
 										<input type="submit" value="削除">
+										<input name="deleteMassageId" type="hidden" value="${message.id}">
 									</form>
 								</div>
 							</div>

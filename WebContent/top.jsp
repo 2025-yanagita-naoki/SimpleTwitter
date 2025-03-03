@@ -86,14 +86,16 @@
 						<c:if test="${loginUser.id == message.userId}">
 							<div class=messages_submit>
 								<div class="message-submit_edit">
-									<form action="edit" method="post">
+									<form action="edit" method="get">
 										<input type="submit" value="編集">
-										<input name="editMassageId" type="hidden" value="${message.id}">
+										<input name="editMessageId" type="hidden" value="${message.id}">
 									</form>
 								</div>
 								<div class="message-submit_delete">
+									<!-- サーブレット側にて@WebServletのアノテーションで指定している値をURLで紐づけてPostにて送信されている。 -->
 									<form action="deleteMessage" method="post">
 										<input type="submit" value="削除">
+										<!-- hidden属性を使用することで、要素の中身をユーザーに表示しないことを示す -->
 										<input name="deleteMassageId" type="hidden" value="${message.id}">
 									</form>
 								</div>

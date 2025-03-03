@@ -81,6 +81,29 @@ public class MessageService {
           }
       }
 
+    public void edit(String editMassageId, String editMassageText) {
+
+    	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+            " : " + new Object(){}.getClass().getEnclosingMethod().getName());
+
+            Connection connection = null;
+            try {
+                connection = getConnection();
+                new MessageDao().edit(connection, editMassageId, editMassageText);
+                commit(connection);
+            } catch (RuntimeException e) {
+                rollback(connection);
+    		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+                throw e;
+            } catch (Error e) {
+                rollback(connection);
+    		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+                throw e;
+            } finally {
+                close(connection);
+            }
+        }
+
     public List<UserMessage> select(String userId) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
@@ -113,6 +136,32 @@ public class MessageService {
               close(connection);
           }
       }
+
+    public List<Message> select(int id) {
+
+    	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+            " : " + new Object(){}.getClass().getEnclosingMethod().getName());
+
+            Connection connection = null;
+            try {
+                connection = getConnection();
+
+                List<Message> messages = new MessageDao().select(connection, id);
+                commit(connection);
+
+                return messages;
+            } catch (RuntimeException e) {
+                rollback(connection);
+    		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+                throw e;
+            } catch (Error e) {
+                rollback(connection);
+    		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+                throw e;
+            } finally {
+                close(connection);
+            }
+        }
 
 }
 

@@ -7,6 +7,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="./css/style.css" rel="stylesheet" type="text/css">
+		<link href="./css/style.css" rel="stylesheet" type="text/css">
 		<title>編集</title>
 	</head>
 	<body>
@@ -15,18 +16,15 @@
 				<div class="main-title">
 					<h2>つぶやき</h2>
 				</div>
-				<div class="edit-textarea">
-					<form>
-						<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
-					</form>
-				</div>
 				<div class="edit-submit">
-					<form>
+					<form action="edit" method="post">
+						<textarea name="editMassageText" cols="100" rows="5" class="tweet-box"><c:out value="${defaultMessage}" /></textarea>
 						<input type="submit" value="更新">
+						<input name="editMassageId" type="hidden" value="${editMassageId}">
 					</form>
 				</div>
 				<div class="edit-exit">
-					<a href="./top.jsp">戻る</a>
+					<a href="./">戻る</a>
 				</div>
 			</div>
 			<div class="copyright">

@@ -40,7 +40,6 @@ public class DeleteMessageServlet extends HttpServlet {
 
 	        String deleteMassageId = request.getParameter("deleteMassageId");
 
-
 	        new MessageService().delete(deleteMassageId); // データベースのつぶやきを削除
 	        response.sendRedirect("./"); // 削除後リダイレクト
 	    }

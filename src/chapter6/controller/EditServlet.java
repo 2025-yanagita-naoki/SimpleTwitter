@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import chapter6.beans.Message;
+import chapter6.beans.User;
 import chapter6.logging.InitApplication;
 import chapter6.service.MessageService;
 
@@ -68,4 +69,15 @@ public class EditServlet extends HttpServlet {
 		new MessageService().edit(editMassageId, editMassageText); // データベースのつぶやきを編集
 		response.sendRedirect("./"); // 編集後リダイレクト
 	}
+
+	private boolean isValid(User user, List<String> errorMessages) {
+
+
+		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
+
+	        String id = user.getId();
+
+	        return true;
+	    }
 }

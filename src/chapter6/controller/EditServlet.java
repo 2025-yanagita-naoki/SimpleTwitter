@@ -103,9 +103,9 @@ public class EditServlet extends HttpServlet {
 		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-	        if (StringUtils.isBlank(text)) {
+	        if (StringUtils.isBlank(editMessageText)) {
 	            errorMessages.add("メッセージを入力してください");
-	        } else if (140 < text.length()) {
+	        } else if (140 < editMessageText.length()) {
 	            errorMessages.add("140文字以下で入力してください");
 	        }
 

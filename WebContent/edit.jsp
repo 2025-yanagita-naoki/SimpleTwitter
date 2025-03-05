@@ -12,15 +12,26 @@
 	</head>
 	<body>
 		<div class="main-contents">
+			<c:if test="${ not empty errorMessages }">
+			<!-- ログインしていない場合はテキストエリアが表示されない -->
+				<div class="errorMessages">
+					<ul>
+						<c:forEach items="${errorMessages}" var="errorMessage">
+							<li><c:out value="${errorMessage}" />
+						</c:forEach>
+					</ul>
+				</div>
+				<c:remove var="errorMessages" scope="session" />
+			</c:if>
 			<div class="edit-contents">
 				<div class="main-title">
 					<h2>つぶやき</h2>
 				</div>
 				<div class="edit-submit">
 					<form action="edit" method="post">
-						<textarea name="editMassageText" cols="100" rows="5" class="tweet-box"><c:out value="${defaultMessage}" /></textarea>
+						<textarea name="editMessageText" cols="100" rows="5" class="tweet-box"><c:out value="${defaultMessage}" /></textarea>
 						<input type="submit" value="更新">
-						<input name="editMassageId" type="hidden" value="${editMassageId}">
+						<input name="editMessageId" type="hidden" value="${editMessageId}">
 					</form>
 				</div>
 				<div class="edit-exit">

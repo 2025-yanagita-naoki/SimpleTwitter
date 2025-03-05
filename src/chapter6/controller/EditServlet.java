@@ -1,6 +1,7 @@
 package chapter6.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
 
 import chapter6.beans.Message;
-import chapter6.beans.User;
 import chapter6.logging.InitApplication;
 import chapter6.service.MessageService;
 
@@ -30,7 +33,6 @@ public class EditServlet extends HttpServlet {
 	public EditServlet() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
-
 	}
 
 	@Override
@@ -42,15 +44,33 @@ public class EditServlet extends HttpServlet {
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
 
-		int editMessageId = Integer.parseInt(request.getParameter("editMessageId"));
+		String editMessageId = request.getParameter("editMessageId");
+		List<String> errorMessages = new ArrayList<String>();
 
+		if ((!editMessageId.isEmpty()) && (editMessageId.matches("^[0-9]+$"))) {
+            	int selectEditMessageId = Integer.parseInt(editMessageId);
 
-		List<Message> defaultMessages = new MessageService().select(editMessageId);
-		String defaultMessage = defaultMessages.get(0).getText();
+        		Message defaultMessages = new MessageService().select(selectEditMessageId);
+        		if(defaultMessages == null) {
+        			errorMessages.add("不正なパラメータが入力されました");
+        			HttpSession session = request.getSession();
+        	    	session.setAttribute("errorMessages", errorMessages);
+        	    	response.sendRedirect("./");
+        	    	return;
+        		}
 
-		request.setAttribute("defaultMessage", defaultMessage);
-		request.setAttribute("editMassageId", editMessageId);
-		request.getRequestDispatcher("edit.jsp").forward(request, response);
+        		String defaultMessage = defaultMessages.getText();
+
+        		request.setAttribute("defaultMessage", defaultMessage);
+        		request.setAttribute("editMessageId", editMessageId);
+
+        		request.getRequestDispatcher("/edit.jsp").forward(request, response);
+        } else {
+        	errorMessages.add("不正なパラメータが入力されました");
+        	HttpSession session = request.getSession();
+	    	session.setAttribute("errorMessages", errorMessages);
+	    	response.sendRedirect("./"); // 編集後リダイレクト
+        }
 	}
 
 	@Override
@@ -63,21 +83,35 @@ public class EditServlet extends HttpServlet {
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
 
-		String editMassageId = request.getParameter("editMassageId");
-		String editMassageText = request.getParameter("editMassageText");
+		String editMessageId = request.getParameter("editMessageId");
+		String editMessageText = request.getParameter("editMessageText");
+		HttpSession session = request.getSession();
+		List<String> errorMessages = new ArrayList<String>();
 
-		new MessageService().edit(editMassageId, editMassageText); // データベースのつぶやきを編集
+		if (!isValid(editMessageText, errorMessages)) {
+            session.setAttribute("errorMessages", errorMessages);
+            request.getRequestDispatcher("edit.jsp").forward(request, response);
+            return;
+        }
+
+		new MessageService().edit(editMessageId, editMessageText); // データベースのつぶやきを編集
 		response.sendRedirect("./"); // 編集後リダイレクト
 	}
 
-	private boolean isValid(User user, List<String> errorMessages) {
-
+	private boolean isValid(String text, List<String> errorMessages) { // バリデーション
 
 		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-	        String id = user.getId();
+	        if (StringUtils.isBlank(text)) {
+	            errorMessages.add("メッセージを入力してください");
+	        } else if (140 < text.length()) {
+	            errorMessages.add("140文字以下で入力してください");
+	        }
 
+	        if (errorMessages.size() != 0) {
+	            return false;
+	        }
 	        return true;
 	    }
 }

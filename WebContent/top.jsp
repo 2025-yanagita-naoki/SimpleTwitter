@@ -1,7 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page isELIgnored="false"%> <!-- EL式の有効無効を設定する falseが有効 -->
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- JSTLのコアタグライブラリを使用 -->
+<%@page isELIgnored="false"%>
+<!-- EL式の有効無効を設定する falseが有効 -->
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- JSTLのコアタグライブラリを使用 -->
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!-- JSTLのフォーマットタグライブラリを使用 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,11 +15,13 @@
 <body>
 	<div class="main-contents">
 		<div class="header">
-			<c:if test="${ empty loginUser }"> <!-- login状態ではないときの表示 -->
+			<c:if test="${ empty loginUser }">
+				<!-- login状態ではないときの表示 -->
 				<a href="login">ログイン</a>
 				<a href="signup">登録する</a>
 			</c:if>
-			<c:if test="${ not empty loginUser }"> <!-- login状態の表示 -->
+			<c:if test="${ not empty loginUser }">
+				<!-- login状態の表示 -->
 				<a href="./">ホーム</a>
 				<a href="setting">設定</a>
 				<a href="logout">ログアウト</a>
@@ -32,7 +36,7 @@
 					</h2>
 				</div>
 				<div class="account">
-				@
+					@
 					<c:out value="${loginUser.account}" />
 					<!-- LoginServletでセットしたセッションから値を取得 -->
 				</div>
@@ -53,7 +57,6 @@
 			</div>
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
-
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
 				<form action="message" method="post">
@@ -68,15 +71,14 @@
 			<c:forEach items="${messages}" var="message">
 				<div class="message">
 					<div class="account-name">
-						<span class="account">
-							<a href="./?user_id=<c:out value="${message.userId}"/> ">
-								<c:out value="${message.account}" />
-							</a>
-						</span>
-						<span class="name"><c:out value="${message.name}" /></span>
+						<span class="account"> <a
+							href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
+									value="${message.account}" />
+						</a>
+						</span> <span class="name"><c:out value="${message.name}" /></span>
 					</div>
 					<div class="text">
-						<c:out value="${message.text}" />
+						<pre><c:out value="${message.text}" /></pre>
 					</div>
 					<div class="date">
 						<fmt:formatDate value="${message.createdDate}"
@@ -87,8 +89,8 @@
 							<div class=messages_submit>
 								<div class="message-submit_edit">
 									<form action="edit" method="get">
-										<input type="submit" value="編集">
-										<input name="editMessageId" type="hidden" value="${message.id}">
+										<input type="submit" value="編集"> <input
+											name="editMessageId" type="hidden" value="${message.id}">
 									</form>
 								</div>
 								<div class="message-submit_delete">
@@ -96,7 +98,8 @@
 									<form action="deleteMessage" method="post">
 										<input type="submit" value="削除">
 										<!-- hidden属性を使用することで、要素の中身をユーザーに表示しないことを示す -->
-										<input name="deleteMassageId" type="hidden" value="${message.id}">
+										<input name="deleteMassageId" type="hidden"
+											value="${message.id}">
 									</form>
 								</div>
 							</div>

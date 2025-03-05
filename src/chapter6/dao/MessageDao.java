@@ -31,7 +31,6 @@ public class MessageDao {
     public MessageDao() {
         InitApplication application = InitApplication.getInstance();
         application.init();
-
     }
 
     public void insert(Connection connection, Message message) {
@@ -124,7 +123,7 @@ public class MessageDao {
     	    }
         }
 
-    public List<Message> select(Connection connection, int id) {
+    public Message select(Connection connection, int id) {
 
     	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
             " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -139,7 +138,14 @@ public class MessageDao {
                 ResultSet rs = ps.executeQuery();
 
                 List<Message> messages = toMessages(rs);
-                return messages;
+                if (messages.isEmpty()) {
+    	            return null;
+    	        } else if (2 <= messages.size()) {
+    	    		log.log(Level.SEVERE, "ユーザーが重複しています", new IllegalStateException());
+    	            throw new IllegalStateException("ユーザーが重複しています");
+    	        } else {
+    	            return messages.get(0);
+    	        }
             } catch (SQLException e) {
     		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
                 throw new SQLRuntimeException(e);
@@ -149,7 +155,6 @@ public class MessageDao {
         }
 
     private List<Message> toMessages(ResultSet rs) throws SQLException {
-
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
           " : " + new Object(){}.getClass().getEnclosingMethod().getName());

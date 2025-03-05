@@ -33,7 +33,6 @@ public class TopServlet extends HttpServlet {
     public TopServlet() {
         InitApplication application = InitApplication.getInstance();
         application.init(); // クラスのインスタンスが生成されるとき自動的に呼ばれる
-
     }
 
     @Override
@@ -56,7 +55,5 @@ public class TopServlet extends HttpServlet {
         request.setAttribute("isShowMessageForm", isShowMessageForm);
         request.getRequestDispatcher("/top.jsp").forward(request, response);
     }
-
-
 }
 

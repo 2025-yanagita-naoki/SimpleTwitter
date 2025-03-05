@@ -32,7 +32,6 @@ public class MessageService {
     public MessageService() {
         InitApplication application = InitApplication.getInstance();
         application.init();
-
     }
 
     public void insert(Message message) {
@@ -137,7 +136,7 @@ public class MessageService {
           }
       }
 
-    public List<Message> select(int id) {
+    public Message select(int id) {
 
     	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
             " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -146,7 +145,7 @@ public class MessageService {
             try {
                 connection = getConnection();
 
-                List<Message> messages = new MessageDao().select(connection, id);
+                Message messages = new MessageDao().select(connection, id);
                 commit(connection);
 
                 return messages;
@@ -162,6 +161,5 @@ public class MessageService {
                 close(connection);
             }
         }
-
 }
 

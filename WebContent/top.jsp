@@ -89,8 +89,8 @@
 							<div class=messages_submit>
 								<div class="message-submit_edit">
 									<form action="edit" method="get">
-										<input type="submit" value="編集"> <input
-											name="editMessageId" type="hidden" value="${message.id}">
+										<input type="submit" value="編集">
+										<input name="editMessageId" type="hidden" value="${message.id}">
 									</form>
 								</div>
 								<div class="message-submit_delete">

@@ -47,11 +47,11 @@ public class EditServlet extends HttpServlet {
 		String editMessageId = request.getParameter("editMessageId");
 		List<String> errorMessages = new ArrayList<String>();
 
-		if ((!editMessageId.isEmpty()) && (editMessageId.matches("^[0-9]+$"))) {
+		if ((!StringUtils.isEmpty(editMessageId)) && (editMessageId.matches("^[0-9]+$"))) {
             	int selectEditMessageId = Integer.parseInt(editMessageId);
 
-        		Message defaultMessages = new MessageService().select(selectEditMessageId);
-        		if(defaultMessages == null) {
+        		Message messages = new MessageService().select(selectEditMessageId);
+        		if(messages == null) {
         			errorMessages.add("不正なパラメータが入力されました");
         			HttpSession session = request.getSession();
         	    	session.setAttribute("errorMessages", errorMessages);
@@ -59,10 +59,7 @@ public class EditServlet extends HttpServlet {
         	    	return;
         		}
 
-        		String defaultMessage = defaultMessages.getText();
-
-        		request.setAttribute("defaultMessage", defaultMessage);
-        		request.setAttribute("editMessageId", editMessageId);
+        		request.setAttribute("messages", messages);
 
         		request.getRequestDispatcher("/edit.jsp").forward(request, response);
         } else {
@@ -83,7 +80,8 @@ public class EditServlet extends HttpServlet {
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
 
-		String editMessageId = request.getParameter("editMessageId");
+		Message editmessage = request.getParameter("messeges");
+		String editMessageId = request.getParameter(editmessage.getId());
 		String editMessageText = request.getParameter("editMessageText");
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();

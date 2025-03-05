@@ -29,9 +29,9 @@
 				</div>
 				<div class="edit-submit">
 					<form action="edit" method="post">
-						<textarea name="editMessageText" cols="100" rows="5" class="tweet-box"><c:out value="${defaultMessage}" /></textarea>
+						<textarea name="editMessageText" cols="100" rows="5" class="tweet-box"><c:out value="${messages.text}" /></textarea>
 						<input type="submit" value="更新">
-						<input name="editMessageId" type="hidden" value="${editMessageId}">
+						<input name="editMessageId" type="hidden" value="${messages.id}">
 					</form>
 				</div>
 				<div class="edit-exit">

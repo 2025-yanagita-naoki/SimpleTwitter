@@ -98,7 +98,7 @@ public class EditServlet extends HttpServlet {
 		response.sendRedirect("./"); // 編集後リダイレクト
 	}
 
-	private boolean isValid(String text, List<String> errorMessages) { // バリデーション
+	private boolean isValid(String editMessageText, List<String> errorMessages) { // バリデーション
 
 		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());

@@ -126,6 +126,30 @@ a.profile .account {
 	padding-left: 20px;
 }
 
+.comment {
+	padding-top: 20px;
+}
+
+.comment-user {
+
+}
+
+.comment-account {
+
+}
+
+.comment-name {
+	display: inline-block;
+}
+
+.comment-text {
+	display: block;
+}
+
+.comment-createdDate {
+	display: block;
+}
+
 .copyright {
 	width: 250px;
 	margin: 0 auto;

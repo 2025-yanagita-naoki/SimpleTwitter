@@ -105,6 +105,27 @@
 							</div>
 						</c:if>
 					</div>
+					<div class="message-comment">
+						<c:forEach items="${commentMessages}" var="commentMessage">
+							<c:if test="${commentMessage.messageId == message.id}">
+								<div class="comment">
+									<div class="comment-user">
+										<c:out value="${commentMessage.account}" />
+										<c:out value="${commentMessage.name}" />
+									</div>
+									<div class="comment-text"><c:out value="${commentMessage.text}" /></div>
+									<fmt:formatDate value="${commentMessage.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" />
+								</div>
+							</c:if>
+						</c:forEach>
+						<form action="comment" method="post">
+							返信<br />
+							<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
+							<input name="UserId" type="hidden" value="${message.userId}">
+							<input name="id" type="hidden" value="${message.id}">
+							<br /> <input type="submit" value="返信">
+						</form>
+					</div>
 				</div>
 			</c:forEach>
 		</div>

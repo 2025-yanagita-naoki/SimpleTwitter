@@ -57,7 +57,7 @@ public class MessageService {
         }
     }
 
-    public void delete(String deleteMessageId) {
+    public void delete(int deleteMessageId) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
           " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -80,7 +80,7 @@ public class MessageService {
           }
       }
 
-    public void edit(String editMassageId, String editMassageText) {
+    public void edit(int editMassageId, String editMassageText) {
 
     	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
             " : " + new Object(){}.getClass().getEnclosingMethod().getName());

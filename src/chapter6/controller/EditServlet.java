@@ -80,19 +80,21 @@ public class EditServlet extends HttpServlet {
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
 
-		Message editmessage = request.getParameter("messeges");
-		String editMessageId = request.getParameter(editmessage.getId());
-		String editMessageText = request.getParameter("editMessageText");
-		HttpSession session = request.getSession();
+		int editMessageId = Integer.parseInt(request.getParameter("editMessageId"));
+		Message message = new Message();
+		message.setId(editMessageId);
+		message.setText(request.getParameter("editMessageText"));
 		List<String> errorMessages = new ArrayList<String>();
 
-		if (!isValid(editMessageText, errorMessages)) {
-            session.setAttribute("errorMessages", errorMessages);
+		if (!isValid(message.getText(), errorMessages)) {
+			request.setAttribute("errorMessages", errorMessages);
+			Message messages = new MessageService().select(editMessageId);
+			request.setAttribute("messages", messages);
             request.getRequestDispatcher("edit.jsp").forward(request, response);
             return;
         }
 
-		new MessageService().edit(editMessageId, editMessageText); // データベースのつぶやきを編集
+		new MessageService().edit(message.getId(), message.getText()); // データベースのつぶやきを編集
 		response.sendRedirect("./"); // 編集後リダイレクト
 	}
 

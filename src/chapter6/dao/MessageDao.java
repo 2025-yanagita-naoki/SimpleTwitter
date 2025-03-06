@@ -67,7 +67,7 @@ public class MessageDao {
         }
     }
 
-    public void delete(Connection connection, String deleteMessageId) {
+    public void delete(Connection connection, int deleteMessageId) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
           " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -80,7 +80,7 @@ public class MessageDao {
               ps = connection.prepareStatement(sql.toString());
 
 //            バインド変数へ値の代入
-              ps.setString(1, deleteMessageId);
+              ps.setInt(1, deleteMessageId);
 
 //            更新系SQL処理を実行
               ps.executeUpdate();
@@ -92,7 +92,7 @@ public class MessageDao {
           }
       }
 
-    public void edit(Connection connection, String editMassageId, String editMassageText) {
+    public void edit(Connection connection, int editMassageId, String editMassageText) {
 
     	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
             " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -101,14 +101,15 @@ public class MessageDao {
             try {
             	StringBuilder sql = new StringBuilder();//SQL文を作る
             	sql.append("UPDATE messages SET ");
-    			sql.append("    text = ? ");
+    			sql.append("    text = ?, ");
+    	    	sql.append("    updated_date = CURRENT_TIMESTAMP ");
     			sql.append("    WHERE ");
     			sql.append("    id = ? ");
 
                 ps = connection.prepareStatement(sql.toString());
 
                 ps.setString(1, editMassageText);
-                ps.setString(2, editMassageId);
+                ps.setInt(2, editMassageId);
 
                 int count = ps.executeUpdate();
                 if (count == 0) {

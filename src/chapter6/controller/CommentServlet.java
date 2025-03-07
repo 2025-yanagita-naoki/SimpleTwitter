@@ -34,7 +34,6 @@ public class CommentServlet extends HttpServlet {
     public CommentServlet() {
         InitApplication application = InitApplication.getInstance();
         application.init();
-
     }
 
     @Override
@@ -43,7 +42,6 @@ public class CommentServlet extends HttpServlet {
 
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
-
 
       HttpSession session = request.getSession();
       List<String> errorMessages = new ArrayList<String>();

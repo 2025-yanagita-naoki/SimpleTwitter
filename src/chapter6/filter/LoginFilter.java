@@ -37,9 +37,6 @@ public class LoginFilter implements Filter {
     	    	session.setAttribute("errorMessages", errorMessages);
 				res.sendRedirect("./login");
 			}
-
-
-
 		}
 
 		@Override

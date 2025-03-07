@@ -4,6 +4,8 @@ import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,12 +105,28 @@ public class MessageService {
             }
         }
 
-    public List<UserMessage> select(String userId) {
+    public List<UserMessage> select(String userId, String start, String end) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
           " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
           final int LIMIT_NUM = 1000;
+          String startDate;
+          String endDate;
+
+          if(!StringUtils.isEmpty(start)) {
+        	  startDate = start + " 00:00:00";
+          } else {
+        	  startDate = "2020-01-01 00:00:00";
+          }
+
+          if(!StringUtils.isEmpty(end)) {
+        	  endDate = end + " 23:59:59";
+          } else {
+        	  Calendar cl = Calendar.getInstance();
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+              endDate = sdf.format(cl.getTime());
+          }
 
           Connection connection = null;
           try {
@@ -119,7 +137,7 @@ public class MessageService {
                   id = Integer.parseInt(userId);
               }
 
-              List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
+              List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startDate, endDate);
               commit(connection);
 
               return messages;

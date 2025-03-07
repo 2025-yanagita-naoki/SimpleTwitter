@@ -55,6 +55,11 @@ a.profile .account {
 	line-height: 22px;
 }
 
+.date-form {
+	display: inline-flex;
+	gap: 20px;
+}
+
 .form-area {
 	margin-top: 00px;
 	margin-right: 00px;

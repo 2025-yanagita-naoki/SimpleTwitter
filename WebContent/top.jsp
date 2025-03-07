@@ -57,6 +57,16 @@
 			</div>
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
+		<div class="date-form">
+			<form action="./" method="get">
+				日付：
+				<input name="startDate" type="date" value="<c:out value="${startDate}"/>">
+				～
+				<input name="endDate"type="date" value="<c:out value="${endDate}"/>">
+				<input type="submit" value="絞込">
+			</form>
+
+		</div>
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
 				<form action="message" method="post">
@@ -106,25 +116,27 @@
 						</c:if>
 					</div>
 					<div class="message-comment">
-						<c:forEach items="${commentMessages}" var="commentMessage">
-							<c:if test="${commentMessage.messageId == message.id}">
-								<div class="comment">
-									<div class="comment-user">
-										<c:out value="${commentMessage.account}" />
-										<c:out value="${commentMessage.name}" />
+						<c:if test="${ isShowMessageForm }">
+							<c:forEach items="${commentMessages}" var="commentMessage">
+								<c:if test="${commentMessage.messageId == message.id}">
+									<div class="comment">
+										<div class="comment-user">
+											<c:out value="${commentMessage.account}" />
+											<c:out value="${commentMessage.name}" />
+										</div>
+										<div class="comment-text"><pre><c:out value="${commentMessage.text}" /></pre></div>
+										<fmt:formatDate value="${commentMessage.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 									</div>
-									<div class="comment-text"><c:out value="${commentMessage.text}" /></div>
-									<fmt:formatDate value="${commentMessage.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" />
-								</div>
-							</c:if>
-						</c:forEach>
-						<form action="comment" method="post">
-							返信<br />
-							<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
-							<input name="UserId" type="hidden" value="${message.userId}">
-							<input name="id" type="hidden" value="${message.id}">
-							<br /> <input type="submit" value="返信">
-						</form>
+								</c:if>
+							</c:forEach>
+							<form action="comment" method="post">
+								返信<br />
+								<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
+								<input name="UserId" type="hidden" value="${message.userId}">
+								<input name="id" type="hidden" value="${message.id}">
+								<br /> <input type="submit" value="返信">
+							</form>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>

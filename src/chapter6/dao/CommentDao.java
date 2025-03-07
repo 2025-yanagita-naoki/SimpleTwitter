@@ -57,7 +57,6 @@ public class CommentDao {
 
 	              ps = connection.prepareStatement(sql.toString());
 
-
 	              ps.setString(1, message.getText());
 	              ps.setInt(2, message.getUserId());
 	              ps.setInt(3, message.getId());
@@ -90,10 +89,9 @@ public class CommentDao {
 	              sql.append("FROM comments ");
 	              sql.append("INNER JOIN users "); // usersテーブルを結合
 	              sql.append("ON comments.user_id = users.id "); // 左記のIDをもとに結合
-	              sql.append("ORDER BY created_date ASC ");
+	              sql.append("ORDER BY created_date ASC limit " + num);
 
 	              ps = connection.prepareStatement(sql.toString());
-
 
 	              ResultSet rs = ps.executeQuery();
 

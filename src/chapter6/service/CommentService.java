@@ -57,7 +57,7 @@ public class CommentService {
 	  	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	          " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-	          final int LIMIT_NUM = 100;
+	          final int LIMIT_NUM = 1000;
 
 	          Connection connection = null;
 	          try {

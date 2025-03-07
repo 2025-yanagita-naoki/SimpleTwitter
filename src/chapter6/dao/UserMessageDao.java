@@ -32,7 +32,7 @@ public class UserMessageDao {
 
     }
 
-    public List<UserMessage> select(Connection connection, Integer userId, int num) {
+    public List<UserMessage> select(Connection connection, Integer userId, int num, String startDate, String endDate) {
 
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -50,17 +50,26 @@ public class UserMessageDao {
             sql.append("FROM messages ");
             sql.append("INNER JOIN users "); // usersテーブルを結合
             sql.append("ON messages.user_id = users.id "); // 左記のIDをもとに結合
-            //ここに条件分岐を入力
+
             if(userId != null) {
-            	sql.append("WHERE user_id = ? ");
+            	sql.append("WHERE user_id = ? AND ");
+            	sql.append(" 	? >= messages.created_date AND messages.created_date <= ? ");
+                sql.append("ORDER BY created_date DESC limit " + num);
             }
+
+            sql.append("WHERE messages.created_date >= ? AND messages.created_date <= ? ");
             sql.append("ORDER BY created_date DESC limit " + num);
 
             ps = connection.prepareStatement(sql.toString());
 
             if(userId != null) {
             	ps.setInt(1, userId);
+            	ps.setString(2, startDate);
+                ps.setString(3, endDate);
             }
+
+            ps.setString(1, startDate);
+            ps.setString(2, endDate);
 
             ResultSet rs = ps.executeQuery();
 
@@ -75,7 +84,6 @@ public class UserMessageDao {
     }
 
     private List<UserMessage> toUserMessages(ResultSet rs) throws SQLException {
-
 
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());

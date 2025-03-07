@@ -44,6 +44,9 @@ public class TopServlet extends HttpServlet {
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
+	  	String startDate = request.getParameter("startDate");
+	  	String endDate = request.getParameter("endDate");
+
         boolean isShowMessageForm = false;
         User user = (User) request.getSession().getAttribute("loginUser");
         if (user != null) {
@@ -51,9 +54,11 @@ public class TopServlet extends HttpServlet {
         }
 
         String userId = request.getParameter("user_id");
-        List<UserMessage> messages = new MessageService().select(userId);
+        List<UserMessage> messages = new MessageService().select(userId, startDate, endDate);
         List<UserComment> commentMessages = new CommentService().select();
 
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
         request.setAttribute("messages", messages);
         request.setAttribute("isShowMessageForm", isShowMessageForm);
         request.setAttribute("commentMessages", commentMessages);

@@ -52,7 +52,7 @@ public class Comment {
     }
 
     public Date getUpdatedDate() {
-    	return createdDate;
+    	return updatedDate;
     }
 
     public void setUpdatedDate(Date updatedDate) {

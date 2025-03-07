@@ -8,6 +8,7 @@ public class Comment {
     private int messageId;
     private String text;
     private Date createdDate;
+    private Date updatedDate;
 
     // getter/setterは省略されているので、自分で記述しましょう。
     public int getId() {
@@ -48,5 +49,13 @@ public class Comment {
 
     public void setCreatedDate(Date createdDate) {
     	this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+    	return createdDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+    	this.updatedDate = updatedDate;
     }
 }

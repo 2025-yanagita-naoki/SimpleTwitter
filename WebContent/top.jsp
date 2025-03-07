@@ -132,7 +132,7 @@
 							<form action="comment" method="post">
 								返信<br />
 								<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
-								<input name="UserId" type="hidden" value="${message.userId}">
+								<input name="userId" type="hidden" value="${loginUser.id}">
 								<input name="id" type="hidden" value="${message.id}">
 								<br /> <input type="submit" value="返信">
 							</form>

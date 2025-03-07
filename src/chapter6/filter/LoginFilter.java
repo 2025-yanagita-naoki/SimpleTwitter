@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
 				chain.doFilter(request, response); // サーブレットを実行
 			} else {
 				errorMessages.add("ログインをしてください");
-    	    	session.setAttribute("errorMessages", errorMessages);
+				session.setAttribute("errorMessages", errorMessages);
 				res.sendRedirect("./login");
 			}
 		}
@@ -47,6 +47,5 @@ public class LoginFilter implements Filter {
 		@Override
 		public void destroy() {
 		}
-
 	}
 

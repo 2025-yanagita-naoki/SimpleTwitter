@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
-import chapter6.beans.Message;
+import chapter6.beans.Comment;
 import chapter6.logging.InitApplication;
 import chapter6.service.CommentService;
 
@@ -46,7 +46,7 @@ public class CommentServlet extends HttpServlet {
       HttpSession session = request.getSession();
       List<String> errorMessages = new ArrayList<String>();
 
-      int UserId = Integer.parseInt(request.getParameter("UserId"));
+      int userId = Integer.parseInt(request.getParameter("userId"));
       int id = Integer.parseInt(request.getParameter("id"));
       String text = request.getParameter("text");
 
@@ -56,12 +56,12 @@ public class CommentServlet extends HttpServlet {
           return;
       }
 
-      Message Message = new Message();
-      Message.setUserId(UserId);
-      Message.setId(id);
-      Message.setText(text);
+      Comment comment = new Comment();
+      comment.setUserId(userId);
+      comment.setId(id);
+      comment.setText(text);
 
-      new CommentService().insert(Message); // データベースにつぶやきを登録
+      new CommentService().insert(comment); // データベースにつぶやきを登録
       response.sendRedirect("./"); // 登録後リダイレクト
 
     }

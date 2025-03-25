@@ -162,7 +162,6 @@ public class MessageService {
             Connection connection = null;
             try {
                 connection = getConnection();
-
                 Message messages = new MessageDao().select(connection, id);
                 commit(connection);
 
